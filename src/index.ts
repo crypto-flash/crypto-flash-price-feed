@@ -1,7 +1,7 @@
 import http from 'http'
 const hostname = '127.0.0.1'
 const port = 3000
-const coinmarketcap = 'https://coinmarketcap.com/currencies/'
+const COINMARKETCAP_ENDPOINT = 'https://coinmarketcap.com/currencies/'
 // marketName to coinmarketcap page
 const marketNameToPage = {
     BTC: 'bitcoin',
