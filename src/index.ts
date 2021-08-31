@@ -3,7 +3,7 @@ import http from 'http'
 import fetch from 'node-fetch'
 import { parse } from 'node-html-parser'
 
-const hostname = '127.0.0.1'
+const hostname = '0.0.0.0'
 const port = 3000
 const COINMARKETCAP_ENDPOINT = 'https://coinmarketcap.com/currencies'
 // marketName to coinmarketcap page
@@ -56,7 +56,7 @@ function setupServer() {
         res.statusCode = 200
         res.setHeader('Content-Type', 'text/plain')
         console.log(`price: ${price}`)
-        res.end(`${price}`)
+        res.end(`<root>${price}</root>`)
     })
     server.listen(port, hostname, () => {
         console.log(`Server running at http://${hostname}:${port}/`)
