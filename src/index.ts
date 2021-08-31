@@ -10,6 +10,24 @@ const COINMARKETCAP_ENDPOINT = 'https://coinmarketcap.com/currencies'
 const marketNameToPage: { [key: string]: string } = {
     BTC: 'bitcoin',
     ETH: 'ethereum',
+    BNB: 'binance-coin',
+    SOL: 'solana',
+    UNI: 'uniswap',
+    AAVE: 'aave',
+    FTT: 'ftx-token',
+    MKR: 'maker',
+    COMP: 'compound',
+    SUSHI: 'sushiswap',
+    SNX: 'synthetix-network-token',
+    YFI: 'yearn-finance',
+    CRV: 'curve-dao-token',
+    WOO: 'wootrade',
+    SRM: 'serum',
+    PERP: 'perpetual-protocol',
+    '1INCH': '1inch',
+    RAY: 'raydium',
+    OXY: 'oxygen',
+    SLRS: 'solrise-finance',
 }
 interface Market {
     name: string
