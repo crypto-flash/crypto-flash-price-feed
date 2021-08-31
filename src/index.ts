@@ -1,9 +1,13 @@
 import http from 'http'
+
+import fetch from 'node-fetch'
+import { parse } from 'node-html-parser'
+
 const hostname = '127.0.0.1'
 const port = 3000
-const COINMARKETCAP_ENDPOINT = 'https://coinmarketcap.com/currencies/'
+const COINMARKETCAP_ENDPOINT = 'https://coinmarketcap.com/currencies'
 // marketName to coinmarketcap page
-const marketNameToPage = {
+const marketNameToPage: { [key: string]: string } = {
     BTC: 'bitcoin',
     ETH: 'ethereum',
 }
@@ -16,8 +20,13 @@ const markets: { [key: string]: Market } = {}
 
 async function fetchPrice(name: string): Promise<number> {
     console.log(`fetching price of ${name}`)
-    // TODO
-    return 100
+    const url = `${COINMARKETCAP_ENDPOINT}/${marketNameToPage[name]}`
+    const resp = await fetch(url, { method: 'GET' })
+    const root = parse(await resp.text())
+    const priceStr = root.querySelector('div.priceValue ').text
+    const price = parseFloat(priceStr.substr(1).replace(',', ''))
+    console.log(`price: ${price}`)
+    return price
 }
 
 async function updateMarkets() {
