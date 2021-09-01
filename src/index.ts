@@ -36,14 +36,18 @@ interface Market {
 
 const markets: { [key: string]: Market } = {}
 
+function log(msg: string) {
+    console.log(`[${new Date().toISOString()}] ${msg}`)
+}
+
 async function fetchPrice(name: string): Promise<number> {
-    console.log(`fetching price of ${name}`)
+    log(`fetching price of ${name}`)
     const url = `${COINMARKETCAP_ENDPOINT}/${marketNameToPage[name]}`
     const resp = await fetch(url, { method: 'GET' })
     const root = parse(await resp.text())
     const priceStr = root.querySelector('div.priceValue ').text
     const price = parseFloat(priceStr.substr(1).replace(',', ''))
-    console.log(`price: ${price}`)
+    log(`price: ${price}`)
     return price
 }
 
@@ -64,7 +68,7 @@ function setupServer() {
             res.end('no market name')
             return
         }
-        console.log(`request market ${marketName}`)
+        log(`request market ${marketName}`)
         if (!(marketName in markets)) {
             res.statusCode = 404
             res.end('market not found')
@@ -73,11 +77,11 @@ function setupServer() {
         const price = markets[marketName].price
         res.statusCode = 200
         res.setHeader('Content-Type', 'text/plain')
-        console.log(`price: ${price}`)
+        log(`price: ${price}`)
         res.end(`<root>${price}</root>`)
     })
     server.listen(port, hostname, () => {
-        console.log(`Server running at http://${hostname}:${port}/`)
+        log(`Server running at http://${hostname}:${port}/`)
     })
 }
 
@@ -85,7 +89,11 @@ const sleep = (sec: number) => new Promise(res => setTimeout(res, sec * 1000))
 async function main() {
     setupServer()
     while (true) {
-        await updateMarkets()
+        try {
+            await updateMarkets()
+        } catch (err: any) {
+            log(`err: ${err.toString()}`)
+        }
         await sleep(5)
     }
 }
