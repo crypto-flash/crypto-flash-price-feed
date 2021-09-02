@@ -3,34 +3,12 @@ import http from 'http'
 import fetch from 'node-fetch'
 import { parse } from 'node-html-parser'
 
+import { marketNameToPage } from './market'
+
 const hostname = '0.0.0.0'
 const port = 3000
 const COINMARKETCAP_ENDPOINT = 'https://coinmarketcap.com/currencies'
-// marketName to coinmarketcap page
-const marketNameToPage: { [key: string]: string } = {
-    BTC: 'bitcoin',
-    ETH: 'ethereum',
-    BNB: 'binance-coin',
-    SOL: 'solana',
-    UNI: 'uniswap',
-    AAVE: 'aave',
-    FTT: 'ftx-token',
-    MKR: 'maker',
-    COMP: 'compound',
-    SUSHI: 'sushiswap',
-    SNX: 'synthetix-network-token',
-    YFI: 'yearn-finance',
-    CRV: 'curve-dao-token',
-    WOO: 'wootrade',
-    SRM: 'serum',
-    PERP: 'perpetual-protocol',
-    '1INCH': '1inch',
-    RAY: 'raydium',
-    OXY: 'oxygen',
-    SLRS: 'solrise-finance',
-    ATLAS: 'star-atlas',
-    POLIS: 'star-atlas-polis',
-}
+
 interface Market {
     name: string
     price: number
