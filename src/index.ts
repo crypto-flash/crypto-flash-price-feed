@@ -28,6 +28,8 @@ const marketNameToPage: { [key: string]: string } = {
     RAY: 'raydium',
     OXY: 'oxygen',
     SLRS: 'solrise-finance',
+    ATLAS: 'star-atlas',
+    POLIS: 'star-atlas-polis',
 }
 interface Market {
     name: string
