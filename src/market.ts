@@ -1,4 +1,4 @@
-// market name to coinmarketcap page
+// market name to CoinMarketCap page
 export const marketNameToPage: { [key: string]: string } = {
     BTC: 'bitcoin',
     ETH: 'ethereum',
