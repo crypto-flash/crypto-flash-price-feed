@@ -23,4 +23,5 @@ export const marketNameToPage: { [key: string]: string } = {
     ATLAS: 'star-atlas',
     POLIS: 'star-atlas-polis',
     EDEN: 'archer-dao-governance-token',
+    DYDX: 'dydx',
 }
