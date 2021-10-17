@@ -26,4 +26,5 @@ export const marketNameToPage: { [key: string]: string } = {
     DYDX: 'dydx',
     MAX: 'max-exchange-token',
     SPELL: 'spell-token',
+    MCB: 'mcdex',
 }
