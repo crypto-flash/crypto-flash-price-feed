@@ -27,4 +27,6 @@ export const marketNameToPage: { [key: string]: string } = {
     MAX: 'max-exchange-token',
     SPELL: 'spell-token',
     MCB: 'mcdex',
+    ORCA: 'orca',
+    MNGO: 'mango-markets',
 }
