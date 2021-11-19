@@ -29,4 +29,5 @@ export const marketNameToPage: { [key: string]: string } = {
     MCB: 'mcdex',
     ORCA: 'orca',
     MNGO: 'mango-markets',
+    GENE: 'genopets',
 }
