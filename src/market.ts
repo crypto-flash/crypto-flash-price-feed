@@ -30,5 +30,6 @@ export const marketNameToPage: { [key: string]: string } = {
     ORCA: 'orca',
     MNGO: 'mango-markets',
     GENE: 'genopets',
+    BLT: 'blocto',
     DFL: 'defi-land',
 }
