@@ -32,4 +32,5 @@ export const marketNameToPage: { [key: string]: string } = {
     GENE: 'genopets',
     BLT: 'blocto',
     DFL: 'defi-land',
+    REAL: 'realy',
 }
