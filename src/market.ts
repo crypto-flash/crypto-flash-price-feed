@@ -33,4 +33,5 @@ export const marketNameToPage: { [key: string]: string } = {
     BLT: 'blocto',
     DFL: 'defi-land',
     REAL: 'realy',
+    CRO: 'crypto-com-coin',
 }
