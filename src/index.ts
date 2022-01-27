@@ -8,6 +8,7 @@ import { marketNameToPage } from './market'
 const hostname = '0.0.0.0'
 const port = 3000
 const COINMARKETCAP_ENDPOINT = 'https://coinmarketcap.com/currencies'
+const FTX_ENDPOINT = 'https://ftx.com/api/markets'
 
 interface Market {
     name: string
@@ -31,12 +32,25 @@ async function fetchPrice(name: string): Promise<number> {
     return price
 }
 
+async function fetchFtxPrice(name: string): Promise<number> {
+    log(`[FTX] fetching price of ${name}`)
+    const url = `${FTX_ENDPOINT}/${name}/USD`
+    const resp = await fetch(url, { method: 'GET' })
+    const price = (await resp.json()).result.last
+    log(`[FTX] price: ${price}`)
+    return price
+}
+
 async function updateMarkets() {
     for (const name in marketNameToPage) {
         if (!(name in markets)) {
             markets[name] = { name, price: 0 }
         }
-        markets[name].price = await fetchPrice(name)
+        try {
+            markets[name].price = await fetchFtxPrice(name)
+        } catch (error) {
+            markets[name].price = await fetchPrice(name)
+        }
     }
 }
 
