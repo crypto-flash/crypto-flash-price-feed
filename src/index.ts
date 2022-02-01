@@ -24,7 +24,7 @@ function log(msg: string) {
 async function fetchPrice(name: string): Promise<number> {
     log(`fetching price of ${name}`)
     const url = `${COINMARKETCAP_ENDPOINT}/${marketNameToPage[name]}`
-    const resp = await fetch(url, { method: 'GET' })
+    const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
     const root = parse(await resp.text())
     const priceStr = root.querySelector('div.priceValue ').text
     const price = parseFloat(priceStr.substr(1).replace(',', ''))
@@ -35,7 +35,7 @@ async function fetchPrice(name: string): Promise<number> {
 async function fetchFtxPrice(name: string): Promise<number> {
     log(`[FTX] fetching price of ${name}`)
     const url = `${FTX_ENDPOINT}/${name}/USD`
-    const resp = await fetch(url, { method: 'GET' })
+    const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
     const price = (await resp.json()).result.last
     log(`[FTX] price: ${price}`)
     return price
