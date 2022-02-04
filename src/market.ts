@@ -34,4 +34,5 @@ export const marketNameToPage: { [key: string]: string } = {
     DFL: 'defi-land',
     REAL: 'realy',
     CRO: 'crypto-com-coin',
+    DOGE: 'dogecoin',
 }
