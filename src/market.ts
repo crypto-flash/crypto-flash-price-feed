@@ -35,4 +35,5 @@ export const marketNameToPage: { [key: string]: string } = {
     REAL: 'realy',
     CRO: 'crypto-com-coin',
     UXP: 'uxd-protocol',
+    DOGE: 'dogecoin',
 }
