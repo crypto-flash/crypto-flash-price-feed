@@ -36,4 +36,5 @@ export const marketNameToPage: { [key: string]: string } = {
     CRO: 'crypto-com-coin',
     UXP: 'uxd-protocol',
     DOGE: 'dogecoin',
+    LINK: 'chainlink',
 }
