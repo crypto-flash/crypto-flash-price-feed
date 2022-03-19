@@ -37,4 +37,5 @@ export const marketNameToPage: { [key: string]: string } = {
     UXP: 'uxd-protocol',
     DOGE: 'dogecoin',
     LINK: 'chainlink',
+    APE: 'apecoin-ape',
 }
