@@ -38,4 +38,5 @@ export const marketNameToPage: { [key: string]: string } = {
     DOGE: 'dogecoin',
     LINK: 'chainlink',
     APE: 'apecoin-ape',
+    SAND: 'the-sandbox',
 }
