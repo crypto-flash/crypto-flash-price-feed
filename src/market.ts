@@ -39,4 +39,5 @@ export const marketNameToPage: { [key: string]: string } = {
     LINK: 'chainlink',
     APE: 'apecoin-ape',
     SAND: 'the-sandbox',
+    STG: 'stargate-finance',
 }
