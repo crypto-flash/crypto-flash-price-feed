@@ -33,6 +33,7 @@ async function fetchPrice(name: string): Promise<number> {
 }
 
 async function fetchFtxPrice(name: string): Promise<number> {
+    name = name.toUpperCase()
     log(`[FTX] fetching price of ${name}`)
     const url = `${FTX_ENDPOINT}/${name}/USD`
     const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
@@ -42,10 +43,7 @@ async function fetchFtxPrice(name: string): Promise<number> {
 }
 
 async function updateMarkets() {
-    for (const name in marketNameToPage) {
-        if (!(name in markets)) {
-            markets[name] = { name, price: 0 }
-        }
+    for (const name in markets) {
         try {
             markets[name].price = await fetchFtxPrice(name)
         } catch (error) {
@@ -54,29 +52,37 @@ async function updateMarkets() {
     }
 }
 
+function initMarkets() {
+    for (const name in marketNameToPage) {
+        markets[name] = { name, price: 0 }
+    }
+}
+
 function setupServer() {
     const server = http.createServer((req, res) => {
-        const marketName = req.url?.substr(1)
+        const marketName = req.url?.substr(1)?.toUpperCase()
         if (!marketName) {
             res.statusCode = 400
             res.end('no market name')
             return
         }
-        log(`request market ${marketName}`)
-        if (!(marketName in markets)) {
-            fetchFtxPrice(marketName.toUpperCase()).then(price => {
-                markets[marketName] = { name: marketName, price }
-                marketNameToPage[marketName] = marketName
-            })
-            res.statusCode = 404
-            res.end('market not found')
+        if (marketName in markets) {
+            const price = markets[marketName].price
+            res.statusCode = 200
+            res.setHeader('Content-Type', 'text/plain')
+            log(`price: ${price}`)
+            res.end(`<root>${price}</root>`)
             return
         }
-        const price = markets[marketName].price
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'text/plain')
-        log(`price: ${price}`)
-        res.end(`<root>${price}</root>`)
+        fetchFtxPrice(marketName)
+            .then(price => {
+                markets[marketName] = { name: marketName, price }
+            })
+            .catch(err => {
+                res.statusCode = 404
+                res.end('market not found')
+                log(`err: ${err.toString()}`)
+            })
     })
     server.listen(port, hostname, () => {
         log(`Server running at http://${hostname}:${port}/`)
@@ -85,6 +91,7 @@ function setupServer() {
 
 const sleep = (sec: number) => new Promise(res => setTimeout(res, sec * 1000))
 async function main() {
+    initMarkets()
     setupServer()
     while (true) {
         try {
