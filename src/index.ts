@@ -36,7 +36,7 @@ async function fetchFtxPrice(name: string): Promise<number> {
     log(`[FTX] fetching price of ${name}`)
     const url = `${FTX_ENDPOINT}/${name}/USD`
     const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
-    const price = (await resp.json()).result.last
+    const price = (await resp.json()).result?.last
     log(`[FTX] price: ${price}`)
     return price
 }
@@ -64,6 +64,10 @@ function setupServer() {
         }
         log(`request market ${marketName}`)
         if (!(marketName in markets)) {
+            fetchFtxPrice(marketName.toUpperCase()).then(price => {
+                markets[marketName] = { name: marketName, price }
+                marketNameToPage[marketName] = marketName
+            })
             res.statusCode = 404
             res.end('market not found')
             return
