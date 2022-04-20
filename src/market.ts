@@ -41,4 +41,6 @@ export const marketNameToPage: { [key: string]: string } = {
     SAND: 'the-sandbox',
     STG: 'stargate-finance',
     GRT: 'the-graph',
+    CULT: 'cult-dao',
+    CVX: 'convex-finance',
 }
