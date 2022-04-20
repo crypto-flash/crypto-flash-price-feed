@@ -41,10 +41,10 @@ async function fetchFtxPrice(name: string): Promise<number> {
     const url = `${FTX_ENDPOINT}/${name}/USD`
     const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
     const result = (await resp.json()).result
-    if (!result) {
+    const price = result.last || result.ask || result.bid
+    if (!price) {
         throw new Error(`${name} not found in FTX`)
     }
-    const price = result.last || result.ask || result.bid
     log(`[FTX] price: ${price}`)
     return price
 }
@@ -54,9 +54,11 @@ async function updateMarkets() {
         try {
             markets[name].price = await fetchFtxPrice(name)
         } catch (err: any) {
-            await fetchCoinMarketCapPrice(name)
-                .then(price => (markets[name].price = price))
-                .catch(err => log(`fetchCoinMarketCapPriceError: ${err.toString()}`))
+            try {
+                markets[name].price = await fetchCoinMarketCapPrice(name)
+            } catch (error) {
+                log(`fetchCoinMarketCapPriceError: ${err.toString()}`)
+            }
         }
     }
 }
@@ -78,21 +80,21 @@ function setupServer() {
             res.end('no market name')
             return
         }
-        function responsePrice(price: number) {
+        function respondPrice(price: number) {
             res.statusCode = 200
             res.setHeader('Content-Type', 'text/plain')
             log(`response ${marketName} price: ${price}`)
             res.end(`<root>${price}</root>`)
         }
         if (marketName in markets) {
-            responsePrice(markets[marketName].price)
+            respondPrice(markets[marketName].price)
             return
         }
         fetchFtxPrice(marketName)
             .then(price => {
                 markets[marketName] = { name: marketName, price }
                 log(`market added: ${marketName}, price: ${price}`)
-                responsePrice(price)
+                respondPrice(price)
             })
             .catch(err => {
                 res.statusCode = 404
