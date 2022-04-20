@@ -40,4 +40,5 @@ export const marketNameToPage: { [key: string]: string } = {
     APE: 'apecoin-ape',
     SAND: 'the-sandbox',
     STG: 'stargate-finance',
+    GRT: 'the-graph',
 }
