@@ -21,58 +21,86 @@ function log(msg: string) {
     console.log(`[${new Date().toISOString()}] ${msg}`)
 }
 
-async function fetchPrice(name: string): Promise<number> {
-    log(`fetching price of ${name}`)
+async function fetchCoinMarketCapPrice(name: string): Promise<number> {
+    if (!(name in marketNameToPage)) {
+        throw new Error(`${name} not found in CoinMarketCap`)
+    }
+    log(`[CoinMarketCap] fetching price of ${name}`)
     const url = `${COINMARKETCAP_ENDPOINT}/${marketNameToPage[name]}`
     const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
     const root = parse(await resp.text())
     const priceStr = root.querySelector('div.priceValue ').text
     const price = parseFloat(priceStr.substr(1).replace(',', ''))
-    log(`price: ${price}`)
+    log(`[CoinMarketCap] price: ${price}`)
     return price
 }
 
 async function fetchFtxPrice(name: string): Promise<number> {
+    name = name.toUpperCase()
     log(`[FTX] fetching price of ${name}`)
     const url = `${FTX_ENDPOINT}/${name}/USD`
     const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
-    const price = (await resp.json()).result.last
+    const result = (await resp.json()).result
+    const price = result.last || result.ask || result.bid
+    if (!price) {
+        throw new Error(`${name} not found in FTX`)
+    }
     log(`[FTX] price: ${price}`)
     return price
 }
 
 async function updateMarkets() {
-    for (const name in marketNameToPage) {
-        if (!(name in markets)) {
-            markets[name] = { name, price: 0 }
-        }
+    for (const name in markets) {
         try {
             markets[name].price = await fetchFtxPrice(name)
-        } catch (error) {
-            markets[name].price = await fetchPrice(name)
+        } catch (err: any) {
+            try {
+                markets[name].price = await fetchCoinMarketCapPrice(name)
+            } catch (error) {
+                log(`fetchCoinMarketCapPriceError: ${err.toString()}`)
+            }
         }
+    }
+}
+
+function initMarkets() {
+    for (const name in marketNameToPage) {
+        markets[name] = { name, price: 0 }
     }
 }
 
 function setupServer() {
     const server = http.createServer((req, res) => {
-        const marketName = req.url?.substr(1)
+        const marketName = req.url?.substr(1)?.toUpperCase()
+        if (marketName === 'FAVICON.ICO') {
+            return
+        }
         if (!marketName) {
             res.statusCode = 400
             res.end('no market name')
             return
         }
-        log(`request market ${marketName}`)
-        if (!(marketName in markets)) {
-            res.statusCode = 404
-            res.end('market not found')
+        function respondPrice(price: number) {
+            res.statusCode = 200
+            res.setHeader('Content-Type', 'text/plain')
+            log(`response ${marketName} price: ${price}`)
+            res.end(`<root>${price}</root>`)
+        }
+        if (marketName in markets) {
+            respondPrice(markets[marketName].price)
             return
         }
-        const price = markets[marketName].price
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'text/plain')
-        log(`price: ${price}`)
-        res.end(`<root>${price}</root>`)
+        fetchFtxPrice(marketName)
+            .then(price => {
+                markets[marketName] = { name: marketName, price }
+                log(`market added: ${marketName}, price: ${price}`)
+                respondPrice(price)
+            })
+            .catch(err => {
+                res.statusCode = 404
+                res.end('market not found in FTX')
+                log(`err: ${err.toString()}`)
+            })
     })
     server.listen(port, hostname, () => {
         log(`Server running at http://${hostname}:${port}/`)
@@ -81,6 +109,7 @@ function setupServer() {
 
 const sleep = (sec: number) => new Promise(res => setTimeout(res, sec * 1000))
 async function main() {
+    initMarkets()
     setupServer()
     while (true) {
         try {
