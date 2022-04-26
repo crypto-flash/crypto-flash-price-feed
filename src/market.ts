@@ -44,4 +44,5 @@ export const marketNameToPage: { [key: string]: string } = {
     CULT: 'cult-dao',
     CVX: 'convex-finance',
     GMT: 'green-metaverse-token',
+    BEND: 'bend-dao',
 }
