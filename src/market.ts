@@ -45,4 +45,6 @@ export const marketNameToPage: { [key: string]: string } = {
     CVX: 'convex-finance',
     GMT: 'green-metaverse-token',
     BEND: 'bend-dao',
+    LUNC: 'terra-luna',
+    LOOKS: 'looksrare',
 }
