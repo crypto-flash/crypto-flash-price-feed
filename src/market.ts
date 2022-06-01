@@ -47,4 +47,5 @@ export const marketNameToPage: { [key: string]: string } = {
     BEND: 'bend-dao',
     LUNC: 'terra-luna',
     LOOKS: 'looksrare',
+    OP: 'optimism-ethereum',
 }
