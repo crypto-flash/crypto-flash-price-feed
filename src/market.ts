@@ -48,4 +48,5 @@ export const marketNameToPage: { [key: string]: string } = {
     LUNC: 'terra-luna',
     LOOKS: 'looksrare',
     OP: 'optimism-ethereum',
+    LDO: 'lido-dao',
 }
