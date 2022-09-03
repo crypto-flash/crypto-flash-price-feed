@@ -49,4 +49,5 @@ export const marketNameToPage: { [key: string]: string } = {
     LOOKS: 'looksrare',
     OP: 'optimism-ethereum',
     LDO: 'lido-dao',
+    GMX: 'gmx',
 }
