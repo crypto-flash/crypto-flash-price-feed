@@ -83,7 +83,7 @@ async function updateMarkets() {
         } catch (err: any) {
             try {
                 markets[name].price = await fetchCoinMarketCapPrice(name)
-            } catch (error) {
+            } catch (err: any) {
                 log(`fetchCoinMarketCapPriceError: ${err.toString()}`)
             }
         }
