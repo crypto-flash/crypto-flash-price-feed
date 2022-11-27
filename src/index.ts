@@ -9,6 +9,7 @@ const hostname = '0.0.0.0'
 const port = 3000
 const COINMARKETCAP_ENDPOINT = 'https://coinmarketcap.com/currencies'
 const FTX_ENDPOINT = 'https://ftx.com/api/markets'
+const BINANCE_ENDPOINT = 'https://api.binance.com'
 
 interface Market {
     name: string
@@ -31,7 +32,7 @@ async function fetchCoinMarketCapPrice(name: string): Promise<number> {
     const root = parse(await resp.text())
     const priceStr = root.querySelector('div.priceValue ').text
     const price = parseFloat(priceStr.substr(1).replace(',', ''))
-    log(`[CoinMarketCap] price: ${price}`)
+    log(`[CoinMarketCap] ${name} price: ${price}`)
     return price
 }
 
@@ -45,14 +46,40 @@ async function fetchFtxPrice(name: string): Promise<number> {
     if (!price) {
         throw new Error(`${name} not found in FTX`)
     }
-    log(`[FTX] price: ${price}`)
+    log(`[FTX] ${name} price: ${price}`)
+    return price
+}
+
+async function fetchBinancePrice(name: string): Promise<number> {
+    name = name.toUpperCase()
+    const url = `${BINANCE_ENDPOINT}/api/v3/ticker/price?symbol=${name}USDT`
+    let price: number | undefined = undefined
+    try {
+        const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
+        const result = await resp.json()
+        if (!result.price) {
+            throw new Error(result.msg)
+        }
+        price = result.price
+    } catch (err: any) {
+        log(`[Binance] failed to get ${name} price in USDT market: ${err}`)
+        // try BUSD
+        url.replace('USDT', 'BUSD')
+        const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
+        const result = await resp.json()
+        price = result.price
+    }
+    if (!price) {
+        throw new Error(`${name} not found in Binance`)
+    }
+    log(`[Binance] ${name} price: ${price}`)
     return price
 }
 
 async function updateMarkets() {
     for (const name in markets) {
         try {
-            markets[name].price = await fetchFtxPrice(name)
+            markets[name].price = await fetchBinancePrice(name)
         } catch (err: any) {
             try {
                 markets[name].price = await fetchCoinMarketCapPrice(name)
