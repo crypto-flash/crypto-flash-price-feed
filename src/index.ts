@@ -31,7 +31,7 @@ async function fetchCoinMarketCapPrice(name: string): Promise<number> {
     const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
     const root = parse(await resp.text())
     const priceStr = root.querySelector('div.priceValue ').text
-    const price = parseFloat(priceStr.substr(1).replace(',', ''))
+    const price = parseFloat(priceStr.substring(1).replace(',', ''))
     log(`[CoinMarketCap] ${name} price: ${price}`)
     return price
 }
