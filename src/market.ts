@@ -50,4 +50,5 @@ export const marketNameToPage: { [key: string]: string } = {
     OP: 'optimism-ethereum',
     LDO: 'lido-dao',
     GMX: 'gmx',
+    XEN: 'xen-crypto',
 }
