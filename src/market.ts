@@ -51,4 +51,5 @@ export const marketNameToPage: { [key: string]: string } = {
     LDO: 'lido-dao',
     GMX: 'gmx',
     XEN: 'xen-crypto',
+    SSV: 'ssv-network',
 }

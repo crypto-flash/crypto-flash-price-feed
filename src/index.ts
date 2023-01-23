@@ -50,26 +50,28 @@ async function fetchFtxPrice(name: string): Promise<number> {
     return price
 }
 
-async function fetchBinancePrice(name: string): Promise<number> {
-    name = name.toUpperCase()
-    const url = `${BINANCE_ENDPOINT}/api/v3/ticker/price?symbol=${name}USDT`
-    let price: number | undefined = undefined
+async function fetchBinancePriceByQuote(name: string, quote: string): Promise<number | undefined> {
+    const url = `${BINANCE_ENDPOINT}/api/v3/ticker/price?symbol=${name}${quote}`
     try {
         const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
         const result = await resp.json()
         if (!result.price) {
             throw new Error(result.msg)
         }
-        price = result.price
+        return +result.price
     } catch (err: any) {
-        log(`[Binance] failed to get ${name} price in USDT market: ${err}`)
-        // try BUSD
-        url.replace('USDT', 'BUSD')
-        const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
-        const result = await resp.json()
-        price = result.price
+        log(`[Binance] failed to get ${name} price in ${quote} market: ${err}`)
+        return undefined
     }
-    if (!price) {
+}
+
+async function fetchBinancePrice(name: string): Promise<number> {
+    name = name.toUpperCase()
+    let price = await fetchBinancePriceByQuote(name, 'USDT')
+    if (price === undefined) {
+        price = await fetchBinancePriceByQuote(name, 'BUSD')
+    }
+    if (price === undefined) {
         throw new Error(`${name} not found in Binance`)
     }
     log(`[Binance] ${name} price: ${price}`)
