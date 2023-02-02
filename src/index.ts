@@ -30,6 +30,9 @@ async function fetchCoinMarketCapPrice(name: string): Promise<number> {
     const url = `${COINMARKETCAP_ENDPOINT}/${marketNameToPage[name]}`
     const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
     const root = parse(await resp.text())
+    if (root.querySelector('div.priceValue ')) {
+        console.log(root)
+    }
     const priceStr = root.querySelector('div.priceValue ').text
     const price = parseFloat(priceStr.substring(1).replace(',', ''))
     log(`[CoinMarketCap] ${name} price: ${price}`)
