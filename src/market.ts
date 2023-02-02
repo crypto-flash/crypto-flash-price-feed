@@ -52,4 +52,5 @@ export const marketNameToPage: { [key: string]: string } = {
     GMX: 'gmx',
     XEN: 'xen-crypto',
     SSV: 'ssv-network',
+    STFX: 'stfx',
 }
