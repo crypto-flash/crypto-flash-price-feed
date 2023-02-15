@@ -151,7 +151,7 @@ async function main() {
         } catch (err: any) {
             log(`err: ${err.toString()}`)
         }
-        await sleep(5)
+        await sleep(60)
     }
 }
 
