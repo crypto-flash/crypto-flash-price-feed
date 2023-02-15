@@ -53,4 +53,5 @@ export const marketNameToPage: { [key: string]: string } = {
     XEN: 'xen-crypto',
     SSV: 'ssv-network',
     STFX: 'stfx',
+    BLUR: 'blur-token',
 }
