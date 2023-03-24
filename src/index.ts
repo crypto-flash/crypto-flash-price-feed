@@ -124,17 +124,6 @@ function setupServer() {
             respondPrice(markets[marketName].price)
             return
         }
-        fetchFtxPrice(marketName)
-            .then(price => {
-                markets[marketName] = { name: marketName, price }
-                log(`market added: ${marketName}, price: ${price}`)
-                respondPrice(price)
-            })
-            .catch(err => {
-                res.statusCode = 404
-                res.end('market not found in FTX')
-                log(`err: ${err.toString()}`)
-            })
     })
     server.listen(port, hostname, () => {
         log(`Server running at http://${hostname}:${port}/`)

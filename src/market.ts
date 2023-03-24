@@ -54,4 +54,5 @@ export const marketNameToPage: { [key: string]: string } = {
     SSV: 'ssv-network',
     STFX: 'stfx',
     BLUR: 'blur-token',
+    ARB: 'arbitrum',
 }
