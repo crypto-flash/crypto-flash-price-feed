@@ -52,7 +52,8 @@ export const marketNameToPage: { [key: string]: string } = {
     GMX: 'gmx',
     XEN: 'xen-crypto',
     SSV: 'ssv-network',
-    STFX: 'stfx',
+    FLASH: 'flashstake',
     BLUR: 'blur-token',
     ARB: 'arbitrum',
+    PENDLE: 'pendle',
 }
