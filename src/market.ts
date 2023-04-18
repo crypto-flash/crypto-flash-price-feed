@@ -56,4 +56,5 @@ export const marketNameToPage: { [key: string]: string } = {
     BLUR: 'blur-token',
     ARB: 'arbitrum',
     PENDLE: 'pendle',
+    AIDOGE: 'arbdoge-ai',
 }
