@@ -57,6 +57,6 @@ export const marketNameToPage: { [key: string]: string } = {
     ARB: 'arbitrum',
     PENDLE: 'pendle',
     AIDOGE: 'arbdoge-ai',
-    stETH: 'steth',
-    rETH: 'rocket-pool-eth',
+    STETH: 'steth',
+    RETH: 'rocket-pool-eth',
 }
