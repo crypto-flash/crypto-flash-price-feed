@@ -59,4 +59,5 @@ export const marketNameToPage: { [key: string]: string } = {
     AIDOGE: 'arbdoge-ai',
     STETH: 'steth',
     RETH: 'rocket-pool-eth',
+    AICODE: 'ai-code',
 }
