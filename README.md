@@ -6,14 +6,13 @@ The response is in XML format so we can use it in google sheets with `IMPORTXML(
 # Installation
 
 ```bash
-npm i
-npm run build
+pnpm i
 ```
 
 # Run
 
 ```bash
-npm start
+pnpm start
 ```
 
 # Usage
