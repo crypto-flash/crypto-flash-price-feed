@@ -60,4 +60,5 @@ export const marketNameToPage: { [key: string]: string } = {
     STETH: 'steth',
     RETH: 'rocket-pool-eth',
     AICODE: 'ai-code',
+    SFRXETH: 'frax-staked-ether',
 }
