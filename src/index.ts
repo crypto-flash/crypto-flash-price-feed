@@ -3,12 +3,13 @@ import http from 'http'
 import { marketNameToPage } from './market'
 import { BinancePriceSource } from './price-source/binance-price-source'
 import { CMCPriceSource } from './price-source/cmc-price-source'
+import { YahooPriceSource } from './price-source/yahoo-price-source'
 import Big from 'big.js'
 import { sleep, log } from './helper'
 
 const hostname = '0.0.0.0'
 const port = 3000
-const priceSources = [new BinancePriceSource(), new CMCPriceSource()]
+const priceSources = [new BinancePriceSource(), new CMCPriceSource(), new YahooPriceSource()]
 
 interface Market {
     name: string

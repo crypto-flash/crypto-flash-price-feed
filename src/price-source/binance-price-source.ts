@@ -1,6 +1,7 @@
 import { PriceSource } from './price-source'
 import Big from 'big.js'
 import fetch from 'node-fetch'
+import { log } from '../helper'
 
 export class BinancePriceSource implements PriceSource {
     private readonly BINANCE_ENDPOINT = 'https://api.binance.com'
@@ -26,6 +27,7 @@ export class BinancePriceSource implements PriceSource {
             price = await this.fetchBinancePriceByQuote(symbol, 'BUSD')
             return price
         } catch (err: any) {
+            log(`[BinancePriceSource] fetch price for ${symbol} error: ${err}`)
             return undefined
         }
     }

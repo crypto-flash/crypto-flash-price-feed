@@ -26,7 +26,7 @@ export class CMCPriceSource implements PriceSource {
             // priceStr is something like $27,334.04
             return Big(priceStr.substring(1).replace(',', ''))
         } catch (err: any) {
-            log(`CMCPriceSource fetch price error: ${err}`)
+            log(`[CMCPriceSource] fetch price for ${symbol} error: ${err}`)
             return undefined
         }
     }
