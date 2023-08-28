@@ -16,7 +16,7 @@ export class CMCPriceSource implements PriceSource {
         try {
             const resp = await fetch(url, { method: 'GET', timeout: 10 * 1000 })
             const root = parse(await resp.text())
-            const htmlElement = root.querySelector('div.priceValue ')
+            const htmlElement = root.querySelector('#section-coin-overview > div.sc-16891c57-0.hqcKQB.flexStart.alignBaseline > span')
             if (!htmlElement) {
                 // probably rate limit
                 //console.log(root.toString())
