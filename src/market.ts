@@ -19,7 +19,7 @@ export const marketNameToPage: { [key: string]: string } = {
     DYDX: 'dydx',
     MAX: 'max-exchange-token',
     GENE: 'genopets',
-    CRO: 'crypto-com-coin',
+    CRO: 'cronos',
     DOGE: 'dogecoin',
     LINK: 'chainlink',
     APE: 'apecoin-ape',
