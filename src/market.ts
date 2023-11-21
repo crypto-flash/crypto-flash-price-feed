@@ -44,6 +44,7 @@ export const marketNameToPage: { [key: string]: string } = {
     AICODE: 'ai-code',
     SFRXETH: 'frax-staked-ether',
     AIMBOT: 'aimbot',
+    PYTH: 'pyth-network',
     '2330': '2330.TW',
     '2454': '2454.TW',
     '0050': '0050.TW',
