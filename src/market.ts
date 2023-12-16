@@ -46,6 +46,8 @@ export const marketNameToPage: { [key: string]: string } = {
     AIMBOT: 'aimbot',
     PYTH: 'pyth-network',
     MATIC: 'polygon',
+    MAP: 'map-protocol',
+    STX: 'stacks',
     '2330': '2330.TW',
     '2454': '2454.TW',
     '0050': '0050.TW',
