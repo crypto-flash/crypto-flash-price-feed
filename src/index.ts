@@ -41,7 +41,7 @@ async function updateMarkets() {
 
 function setupServer() {
     const server = http.createServer((req, res) => {
-        const marketName = req.url?.substring(1)?.toUpperCase()
+        const marketName = req.url?.substring(1)
         if (marketName === 'FAVICON.ICO') {
             return
         }
@@ -50,14 +50,16 @@ function setupServer() {
             res.end('no market name')
             return
         }
-        if (marketName in markets) {
-            const price = markets[marketName].price
-            res.statusCode = 200
-            res.setHeader('Content-Type', 'text/plain')
-            log(`response ${marketName} price: ${price}`)
-            res.end(`<root>${price}</root>`)
+        if (!(marketName in markets)) {
+            res.statusCode = 404
+            res.end('market not found')
             return
         }
+        const price = markets[marketName].price
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'text/plain')
+        log(`response ${marketName} price: ${price}`)
+        res.end(`<root>${price}</root>`)
     })
     server.listen(port, hostname, () => {
         log(`Server running at http://${hostname}:${port}/`)
