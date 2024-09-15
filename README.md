@@ -31,4 +31,4 @@ To use it with google sheets:
 =IMPORTXML("http://hostname:3000/BTC", "/")
 ```
 
-To add more cryptocurrencies, update `src/market.ts`.
+To add more cryptocurrencies, update `src/marketConfig.ts`.

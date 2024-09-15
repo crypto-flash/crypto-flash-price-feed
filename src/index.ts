@@ -1,15 +1,21 @@
 import http from 'http'
 
-import { marketNameToPage } from './market'
+import { MarketConfigs } from './marketConfig'
 import { BinancePriceSource } from './price-source/binance-price-source'
 import { CMCPriceSource } from './price-source/cmc-price-source'
 import { YahooPriceSource } from './price-source/yahoo-price-source'
 import Big from 'big.js'
 import { sleep, log } from './helper'
+import { PriceSource, PriceSourceType } from './price-source/price-source'
 
 const hostname = '0.0.0.0'
 const port = 3000
-const priceSources = [new BinancePriceSource(), new CMCPriceSource(), new YahooPriceSource()]
+
+const priceSources: Record<PriceSourceType, PriceSource> = {
+    [PriceSourceType.BINANCE]: new BinancePriceSource(),
+    [PriceSourceType.CMC]: new CMCPriceSource(),
+    [PriceSourceType.YAHOO]: new YahooPriceSource(),
+}
 
 interface Market {
     name: string
@@ -19,25 +25,17 @@ interface Market {
 const markets: { [key: string]: Market } = {}
 
 async function updateMarkets() {
-    for (const name in markets) {
+    for (const [name, marketConfig] of Object.entries(MarketConfigs)) {
+        const priceSourceType = marketConfig.priceSourceType
+        log(`fetching ${name} from ${priceSourceType}`)
         try {
-            for (const priceSource of priceSources) {
-                const price = await priceSource.fetch(name)
-                if (price) {
-                    log(`[${priceSource.constructor.name}] ${name}: ${price}`)
-                    markets[name].price = price
-                    break
-                }
-            }
+            const priceSource = priceSources[priceSourceType]
+            const price = await priceSource.fetch(marketConfig.symbol)
+            log(`[${priceSourceType}] ${name}: ${price}`)
+            markets[name] = { name, price }
         } catch (err: any) {
             log(`fetchPriceError: ${err.toString()}`)
         }
-    }
-}
-
-function initMarkets() {
-    for (const name in marketNameToPage) {
-        markets[name] = { name, price: Big(0) }
     }
 }
 
@@ -67,7 +65,6 @@ function setupServer() {
 }
 
 async function main() {
-    initMarkets()
     setupServer()
     while (true) {
         try {
