@@ -74,7 +74,7 @@ async function main() {
         } catch (err: any) {
             log(`err: ${err.toString()}`)
         }
-        await sleep(60)
+        await sleep(10 * 60)
     }
 }
 
