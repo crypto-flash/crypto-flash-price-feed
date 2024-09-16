@@ -42,6 +42,8 @@ async function updateMarkets() {
 function setupServer() {
     const server = http.createServer((req, res) => {
         const marketName = req.url?.substring(1)
+        log(`request: ${marketName}`)
+
         if (marketName === 'favicon.ico') {
             return
         }
