@@ -42,7 +42,7 @@ async function updateMarkets() {
 function setupServer() {
     const server = http.createServer((req, res) => {
         const marketName = req.url?.substring(1)
-        if (marketName === 'FAVICON.ICO') {
+        if (marketName === 'favicon.ico') {
             return
         }
         if (!marketName) {
