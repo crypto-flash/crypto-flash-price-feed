@@ -1,12 +1,16 @@
 import http from 'http'
 
-import { MarketConfigs } from './marketConfig'
+import { MarketConfig, MarketConfigs } from './marketConfig'
 import { BinancePriceSource } from './price-source/binance-price-source'
 import { CMCPriceSource } from './price-source/cmc-price-source'
 import { YahooPriceSource } from './price-source/yahoo-price-source'
 import Big from 'big.js'
-import { sleep, log } from './helper'
+import { log, sleep } from './helper'
 import { PriceSource, PriceSourceType } from './price-source/price-source'
+import { CoinGeckoPriceSource } from './price-source/coin-gecko-price-source'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const hostname = '0.0.0.0'
 const port = 3000
@@ -15,6 +19,7 @@ const priceSources: Record<PriceSourceType, PriceSource> = {
     [PriceSourceType.BINANCE]: new BinancePriceSource(),
     [PriceSourceType.CMC]: new CMCPriceSource(),
     [PriceSourceType.YAHOO]: new YahooPriceSource(),
+    [PriceSourceType.COIN_GECKO]: new CoinGeckoPriceSource(),
 }
 
 interface Market {
@@ -25,8 +30,16 @@ interface Market {
 const markets: { [key: string]: Market } = {}
 
 async function updateMarkets() {
+    // request all coin gecko markets in 1 request to reduce api usage
+    const coinGeckoMarketConfigs: Record<string, MarketConfig> = {}
+
     for (const [name, marketConfig] of Object.entries(MarketConfigs)) {
         const priceSourceType = marketConfig.priceSourceType
+        if (priceSourceType === PriceSourceType.COIN_GECKO) {
+            coinGeckoMarketConfigs[name] = marketConfig
+            continue
+        }
+
         log(`fetching ${name} from ${priceSourceType}`)
         try {
             const priceSource = priceSources[priceSourceType]
@@ -36,6 +49,22 @@ async function updateMarkets() {
         } catch (err: any) {
             log(`fetchPriceError: ${err.toString()}`)
         }
+    }
+
+    // fetch price from Coin Gecko
+    try {
+        const symbols = Object.values(coinGeckoMarketConfigs).map(marketConfig => marketConfig.symbol)
+        const prices = await (priceSources[PriceSourceType.COIN_GECKO] as CoinGeckoPriceSource).fetchPrices(symbols)
+        for (const [symbol, price] of Object.entries(prices)) {
+            for (const [name, marketConfig] of Object.entries(coinGeckoMarketConfigs)) {
+                if (marketConfig.symbol === symbol) {
+                    log(`[${PriceSourceType.COIN_GECKO}] ${name}: ${price}`)
+                    markets[name] = { name, price }
+                }
+            }
+        }
+    } catch (err: any) {
+        log(`fetchPriceError: ${err.toString()}`)
     }
 }
 
@@ -76,6 +105,7 @@ async function main() {
         } catch (err: any) {
             log(`err: ${err.toString()}`)
         }
+        // Coin Gecko API rate limit is 10000 calls / month
         await sleep(10 * 60)
     }
 }

@@ -1,6 +1,6 @@
 import { PriceSourceType } from './price-source/price-source'
 
-interface MarketConfig {
+export interface MarketConfig {
     priceSourceType: PriceSourceType
     symbol: string
 }
@@ -58,57 +58,52 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.BINANCE,
         symbol: 'DOGEUSDT',
     },
+    PURR: {
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'purr-2',
+    },
     stETH: {
-        priceSourceType: PriceSourceType.CMC,
-        symbol: 'steth',
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'staked-ether',
     },
     rETH: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'rocket-pool-eth',
     },
     INF: {
-        priceSourceType: PriceSourceType.CMC,
-        symbol: 'sanctum-infinity',
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'socean-staked-sol',
     },
     JitoSOL: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'jito-staked-sol',
     },
     MOCA: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'mocaverse',
     },
     ATH: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'aethir',
     },
     MERL: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'merlin-chain',
     },
     ZEUS: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'zeus-network',
     },
     BEND: {
-        priceSourceType: PriceSourceType.CMC,
-        symbol: 'bend-dao',
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'benddao',
     },
     GENE: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'genopets',
     },
-    '2330': {
+    '006208': {
         priceSourceType: PriceSourceType.YAHOO,
-        symbol: '2330.TW',
+        symbol: '006208.TW',
     },
-    '2454': {
-        priceSourceType: PriceSourceType.YAHOO,
-        symbol: '2454.TW',
-    },
-    '0050': {
-        priceSourceType: PriceSourceType.YAHOO,
-        symbol: '0050.TW',
-    },
-    // TODO: PURR in coingecko
 }
