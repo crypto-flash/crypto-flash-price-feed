@@ -102,16 +102,8 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'genopets',
     },
-    '2330': {
+    '006208': {
         priceSourceType: PriceSourceType.YAHOO,
-        symbol: '2330.TW',
-    },
-    '2454': {
-        priceSourceType: PriceSourceType.YAHOO,
-        symbol: '2454.TW',
-    },
-    '0050': {
-        priceSourceType: PriceSourceType.YAHOO,
-        symbol: '0050.TW',
+        symbol: '006208.TW',
     },
 }
