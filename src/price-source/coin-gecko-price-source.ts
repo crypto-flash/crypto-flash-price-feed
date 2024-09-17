@@ -2,12 +2,40 @@ import { PriceSource } from './price-source'
 import Big from 'big.js'
 
 export class CoinGeckoPriceSource implements PriceSource {
-    private readonly BINANCE_ENDPOINT = 'https://api.binance.com'
+    private readonly apiKey: string
+    private readonly endpoint = 'https://api.coingecko.com/api/v3'
+
+    constructor() {
+        if (!process.env.COIN_GECKO_API_KEY) {
+            throw new Error('no coin gecko api key')
+        }
+        this.apiKey = process.env.COIN_GECKO_API_KEY
+    }
 
     async fetch(symbol: string) {
-        const url = `${this.BINANCE_ENDPOINT}/api/v3/ticker/price?symbol=${symbol}`
-        const resp = await fetch(url, { method: 'GET' })
-        const result = (await resp.json()) as any
-        return Big(result.price)
+        const params = new URLSearchParams()
+        params.append('ids', symbol)
+        params.append('vs_currencies', 'usd')
+        const resp = await this.get('simple/price', params)
+        return Big(resp[symbol].usd)
+    }
+
+    async fetchPrices(symbols: string[]) {
+        const params = new URLSearchParams()
+        params.append('ids', symbols.join(','))
+        params.append('vs_currencies', 'usd')
+        const resp = await this.get('simple/price', params)
+        console.log(resp)
+        return Big(0)
+    }
+
+    private async get(path: string, params: URLSearchParams) {
+        const headers = {
+            'x-cg-demo-api-key': this.apiKey,
+        }
+        const url = new URL(`${this.endpoint}/${path}`)
+        url.search = params.toString()
+        const resp = await fetch(url, { method: 'GET', headers })
+        return (await resp.json()) as any
     }
 }
