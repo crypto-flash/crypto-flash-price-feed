@@ -51,7 +51,21 @@ async function updateMarkets() {
         }
     }
 
-    console.log(coinGeckoMarketConfigs)
+    // fetch price from Coin Gecko
+    try {
+        const symbols = Object.values(coinGeckoMarketConfigs).map(marketConfig => marketConfig.symbol)
+        const prices = await (priceSources[PriceSourceType.COIN_GECKO] as CoinGeckoPriceSource).fetchPrices(symbols)
+        for (const [symbol, price] of Object.entries(prices)) {
+            for (const [name, marketConfig] of Object.entries(coinGeckoMarketConfigs)) {
+                if (marketConfig.symbol === symbol) {
+                    log(`[${PriceSourceType.COIN_GECKO}] ${name}: ${price}`)
+                    markets[name] = { name, price }
+                }
+            }
+        }
+    } catch (err: any) {
+        log(`fetchPriceError: ${err.toString()}`)
+    }
 }
 
 function setupServer() {
@@ -91,6 +105,7 @@ async function main() {
         } catch (err: any) {
             log(`err: ${err.toString()}`)
         }
+        // Coin Gecko API rate limit is 10000 calls / month
         await sleep(10 * 60)
     }
 }
