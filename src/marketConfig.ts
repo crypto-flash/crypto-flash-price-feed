@@ -63,43 +63,43 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         symbol: 'purr-2',
     },
     stETH: {
-        priceSourceType: PriceSourceType.CMC,
-        symbol: 'steth',
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'staked-ether',
     },
     rETH: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'rocket-pool-eth',
     },
     INF: {
-        priceSourceType: PriceSourceType.CMC,
-        symbol: 'sanctum-infinity',
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'socean-staked-sol',
     },
     JitoSOL: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'jito-staked-sol',
     },
     MOCA: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'mocaverse',
     },
     ATH: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'aethir',
     },
     MERL: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'merlin-chain',
     },
     ZEUS: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'zeus-network',
     },
     BEND: {
-        priceSourceType: PriceSourceType.CMC,
-        symbol: 'bend-dao',
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'benddao',
     },
     GENE: {
-        priceSourceType: PriceSourceType.CMC,
+        priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'genopets',
     },
     '2330': {
