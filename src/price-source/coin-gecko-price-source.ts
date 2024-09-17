@@ -25,8 +25,10 @@ export class CoinGeckoPriceSource implements PriceSource {
         params.append('ids', symbols.join(','))
         params.append('vs_currencies', 'usd')
         const resp = await this.get('simple/price', params)
-        console.log(resp)
-        return Big(0)
+
+        const result: Record<string, Big> = {}
+        symbols.forEach(symbol => (result[symbol] = Big(resp[symbol].usd)))
+        return result
     }
 
     private async get(path: string, params: URLSearchParams) {
