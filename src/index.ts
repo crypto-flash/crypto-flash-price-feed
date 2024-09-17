@@ -1,12 +1,13 @@
 import http from 'http'
 
-import { MarketConfigs } from './marketConfig'
+import { MarketConfig, MarketConfigs } from './marketConfig'
 import { BinancePriceSource } from './price-source/binance-price-source'
 import { CMCPriceSource } from './price-source/cmc-price-source'
 import { YahooPriceSource } from './price-source/yahoo-price-source'
 import Big from 'big.js'
-import { sleep, log } from './helper'
+import { log, sleep } from './helper'
 import { PriceSource, PriceSourceType } from './price-source/price-source'
+import { CoinGeckoPriceSource } from './price-source/coin-gecko-price-source'
 
 const hostname = '0.0.0.0'
 const port = 3000
@@ -15,6 +16,7 @@ const priceSources: Record<PriceSourceType, PriceSource> = {
     [PriceSourceType.BINANCE]: new BinancePriceSource(),
     [PriceSourceType.CMC]: new CMCPriceSource(),
     [PriceSourceType.YAHOO]: new YahooPriceSource(),
+    [PriceSourceType.COIN_GECKO]: new CoinGeckoPriceSource(),
 }
 
 interface Market {
@@ -25,8 +27,16 @@ interface Market {
 const markets: { [key: string]: Market } = {}
 
 async function updateMarkets() {
+    // request all coin gecko markets in 1 request to reduce api usage
+    const coinGeckoMarketConfigs: Record<string, MarketConfig> = {}
+
     for (const [name, marketConfig] of Object.entries(MarketConfigs)) {
         const priceSourceType = marketConfig.priceSourceType
+        if (priceSourceType === PriceSourceType.COIN_GECKO) {
+            coinGeckoMarketConfigs[name] = marketConfig
+            continue
+        }
+
         log(`fetching ${name} from ${priceSourceType}`)
         try {
             const priceSource = priceSources[priceSourceType]
@@ -37,6 +47,8 @@ async function updateMarkets() {
             log(`fetchPriceError: ${err.toString()}`)
         }
     }
+
+    console.log(coinGeckoMarketConfigs)
 }
 
 function setupServer() {
