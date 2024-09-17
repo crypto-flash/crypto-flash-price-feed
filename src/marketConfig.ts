@@ -14,25 +14,9 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.BINANCE,
         symbol: 'ETHUSDT',
     },
-    stETH: {
-        priceSourceType: PriceSourceType.CMC,
-        symbol: 'steth',
-    },
-    rETH: {
-        priceSourceType: PriceSourceType.CMC,
-        symbol: 'rocket-pool-eth',
-    },
     SOL: {
         priceSourceType: PriceSourceType.BINANCE,
         symbol: 'SOLUSDT',
-    },
-    INF: {
-        priceSourceType: PriceSourceType.CMC,
-        symbol: 'sanctum-infinity',
-    },
-    JitoSOL: {
-        priceSourceType: PriceSourceType.CMC,
-        symbol: 'jito-staked-sol',
     },
     BNB: {
         priceSourceType: PriceSourceType.BINANCE,
@@ -69,6 +53,26 @@ export const MarketConfigs: Record<string, MarketConfig> = {
     WIF: {
         priceSourceType: PriceSourceType.BINANCE,
         symbol: 'WIFUSDT',
+    },
+    DOGE: {
+        priceSourceType: PriceSourceType.BINANCE,
+        symbol: 'DOGEUSDT',
+    },
+    stETH: {
+        priceSourceType: PriceSourceType.CMC,
+        symbol: 'steth',
+    },
+    rETH: {
+        priceSourceType: PriceSourceType.CMC,
+        symbol: 'rocket-pool-eth',
+    },
+    INF: {
+        priceSourceType: PriceSourceType.CMC,
+        symbol: 'sanctum-infinity',
+    },
+    JitoSOL: {
+        priceSourceType: PriceSourceType.CMC,
+        symbol: 'jito-staked-sol',
     },
     MOCA: {
         priceSourceType: PriceSourceType.CMC,
