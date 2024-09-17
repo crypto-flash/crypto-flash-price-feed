@@ -8,6 +8,9 @@ import Big from 'big.js'
 import { log, sleep } from './helper'
 import { PriceSource, PriceSourceType } from './price-source/price-source'
 import { CoinGeckoPriceSource } from './price-source/coin-gecko-price-source'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const hostname = '0.0.0.0'
 const port = 3000
