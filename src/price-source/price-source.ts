@@ -4,6 +4,7 @@ export enum PriceSourceType {
     BINANCE = 'binance',
     CMC = 'cmc',
     YAHOO = 'yahoo',
+    COIN_GECKO = 'coin-gecko',
 }
 
 export interface PriceSource {

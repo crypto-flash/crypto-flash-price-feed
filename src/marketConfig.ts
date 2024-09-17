@@ -1,6 +1,6 @@
 import { PriceSourceType } from './price-source/price-source'
 
-interface MarketConfig {
+export interface MarketConfig {
     priceSourceType: PriceSourceType
     symbol: string
 }
@@ -58,6 +58,10 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.BINANCE,
         symbol: 'DOGEUSDT',
     },
+    PURR: {
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'purr-2',
+    },
     stETH: {
         priceSourceType: PriceSourceType.CMC,
         symbol: 'steth',
@@ -110,5 +114,4 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.YAHOO,
         symbol: '0050.TW',
     },
-    // TODO: PURR in coingecko
 }
