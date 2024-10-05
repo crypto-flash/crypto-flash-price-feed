@@ -62,6 +62,14 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.BINANCE,
         symbol: 'APEUSDT',
     },
+    ENA: {
+        priceSourceType: PriceSourceType.BINANCE,
+        symbol: 'ENAUSDT',
+    },
+    EIGEN: {
+        priceSourceType: PriceSourceType.BINANCE,
+        symbol: 'EIGENUSDT',
+    },
     PURR: {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'purr-2',
