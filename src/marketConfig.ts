@@ -70,6 +70,10 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.BINANCE,
         symbol: 'EIGENUSDT',
     },
+    OP: {
+        priceSourceType: PriceSourceType.BINANCE,
+        symbol: 'OPUSDT',
+    },
     PURR: {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'purr-2',
@@ -113,6 +117,10 @@ export const MarketConfigs: Record<string, MarketConfig> = {
     GENE: {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'genopets',
+    },
+    NEKOCOIN: {
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'nekocoin-2',
     },
     '006208': {
         priceSourceType: PriceSourceType.YAHOO,
