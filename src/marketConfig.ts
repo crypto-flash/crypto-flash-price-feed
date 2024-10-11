@@ -74,9 +74,9 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.BINANCE,
         symbol: 'OPUSDT',
     },
-    AAVE: {
+    BANANA: {
         priceSourceType: PriceSourceType.BINANCE,
-        symbol: 'AAVEUSDT',
+        symbol: 'BANANAUSDT',
     },
     PURR: {
         priceSourceType: PriceSourceType.COIN_GECKO,
