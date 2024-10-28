@@ -134,6 +134,10 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'nekocoin-2',
     },
+    JLP: {
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'jupiter-perpetuals-liquidity-provider-token',
+    },
     '006208': {
         priceSourceType: PriceSourceType.YAHOO,
         symbol: '006208.TW',
