@@ -82,6 +82,10 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.BINANCE,
         symbol: 'AAVEUSDT',
     },
+    TAO: {
+        priceSourceType: PriceSourceType.BINANCE,
+        symbol: 'TAOUSDT',
+    },
     PURR: {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'purr-2',
