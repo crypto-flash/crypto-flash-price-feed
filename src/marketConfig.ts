@@ -138,6 +138,10 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'jupiter-perpetuals-liquidity-provider-token',
     },
+    HYPE: {
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'hyperliquid',
+    },
     '006208': {
         priceSourceType: PriceSourceType.YAHOO,
         symbol: '006208.TW',
