@@ -146,7 +146,7 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'hyperliquid',
     },
-    INST: {
+    FLUID: {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'instadapp',
     },
