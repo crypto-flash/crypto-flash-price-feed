@@ -150,6 +150,10 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'instadapp',
     },
+    MORPHO: {
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'morpho',
+    },
     '006208': {
         priceSourceType: PriceSourceType.YAHOO,
         symbol: '006208.TW',
