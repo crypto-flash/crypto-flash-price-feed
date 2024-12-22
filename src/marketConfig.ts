@@ -154,6 +154,10 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'morpho',
     },
+    ODOS: {
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'odos',
+    },
     '006208': {
         priceSourceType: PriceSourceType.YAHOO,
         symbol: '006208.TW',
