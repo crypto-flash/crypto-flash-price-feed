@@ -174,6 +174,10 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'swarms',
     },
+    AIXBT: {
+        priceSourceType: PriceSourceType.COIN_GECKO,
+        symbol: 'aixbt',
+    },
     '006208': {
         priceSourceType: PriceSourceType.YAHOO,
         symbol: '006208.TW',
