@@ -170,9 +170,9 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'limitus',
     },
-    SWARMS: {
+    ANON: {
         priceSourceType: PriceSourceType.COIN_GECKO,
-        symbol: 'swarms',
+        symbol: 'heyanon',
     },
     AIXBT: {
         priceSourceType: PriceSourceType.COIN_GECKO,
