@@ -162,9 +162,9 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'virtual-protocol',
     },
-    AI16Z: {
+    GRIFFAIN: {
         priceSourceType: PriceSourceType.COIN_GECKO,
-        symbol: 'ai16z',
+        symbol: 'griffain',
     },
     LMT: {
         priceSourceType: PriceSourceType.COIN_GECKO,
