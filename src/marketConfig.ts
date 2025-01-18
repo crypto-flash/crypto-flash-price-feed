@@ -166,9 +166,9 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'griffain',
     },
-    LMT: {
+    TRUMP: {
         priceSourceType: PriceSourceType.COIN_GECKO,
-        symbol: 'limitus',
+        symbol: 'official-trump',
     },
     ANON: {
         priceSourceType: PriceSourceType.COIN_GECKO,
