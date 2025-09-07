@@ -170,9 +170,9 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'official-trump',
     },
-    ANON: {
+    INV: {
         priceSourceType: PriceSourceType.COIN_GECKO,
-        symbol: 'heyanon',
+        symbol: 'inverse-finance',
     },
     AIXBT: {
         priceSourceType: PriceSourceType.COIN_GECKO,
