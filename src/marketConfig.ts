@@ -178,9 +178,9 @@ export const MarketConfigs: Record<string, MarketConfig> = {
         priceSourceType: PriceSourceType.COIN_GECKO,
         symbol: 'aixbt',
     },
-    MON: {
+    CRO: {
         priceSourceType: PriceSourceType.COIN_GECKO,
-        symbol: 'monad',
+        symbol: 'crypto-com-chain',
     },
     '006208': {
         priceSourceType: PriceSourceType.YAHOO,
